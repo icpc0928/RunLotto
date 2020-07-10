@@ -1,8 +1,7 @@
 package com.Lottery;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class WiliLotto {
 
@@ -34,8 +33,8 @@ public class WiliLotto {
 
 
 
-    public HashMap<String, HashMap<Integer, Integer>> operation(){
-        HashMap<String, HashMap<Integer, Integer>> object = new HashMap<>();
+    public HashMap<String, List> operation(){
+        HashMap<String, List> object = new HashMap<>();
 
 
 
@@ -57,8 +56,16 @@ public class WiliLotto {
 
 
         }
-        object.put("ResultBall", resultBall);
-        object.put("ResultGroup", resultGroup);
+
+        //排序
+        List<Map.Entry<Integer, Integer>> ballList = new ArrayList<>(resultBall.entrySet());
+        Collections.sort(ballList, ((o1, o2) -> (o2.getValue() - o1.getValue())));
+        List<Map.Entry<Integer, Integer>> groupList = new ArrayList<>(resultGroup.entrySet());
+        Collections.sort(groupList,(o1, o2) -> (o2.getValue() - o1.getValue()));
+
+
+        object.put("ResultBall", ballList);
+        object.put("ResultGroup", groupList);
         return object;
     }
 
